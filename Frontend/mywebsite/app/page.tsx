@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 /*
   NOVA MARKET — a large single-file Next.js practice project.
@@ -1347,6 +1347,7 @@ const money = (amount: number) =>
   }).format(amount);
 
 export default function HomePage() {
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All products");
   const [sortBy, setSortBy] = useState("featured");
@@ -1360,6 +1361,9 @@ export default function HomePage() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterMessage, setNewsletterMessage] = useState("");
   const [toast, setToast] = useState("");
+  useEffect(() => {
+  setCurrentYear(new Date().getFullYear());
+}, []);
 
   const filteredProducts = useMemo(() => {
     let result = [...initialProducts];
@@ -1865,7 +1869,7 @@ export default function HomePage() {
             <div><h4>Customer care</h4><a href="#about">Help centre</a><a href="#about">Delivery information</a><a href="#about">Returns policy</a><a href="#about">Contact us</a></div>
             <div><h4>Follow along</h4><a href="#newsletter">Newsletter</a><a href="#shop">New arrivals</a><a href="#deals">Weekly deals</a><a href="#top">Back to top ↑</a></div>
           </div>
-          <div className="footer-bottom"><span>© {new Date().getFullYear()} Nova Market · Practice project</span><span>Built with React and Next.js · No real checkout</span></div>
+          <div className="footer-bottom"><span>© {currentYear ?? ""} Nova Market · Practice project</span><span>Built with React and Next.js · No real checkout</span></div>
         </div>
       </footer>
 
